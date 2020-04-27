@@ -1,4 +1,5 @@
-./wine-reviews/*
+wine-reviews/*
 *.zip
 *.csv
-./__pycahce__/*
+__pycahce__/*
+.idea/*
