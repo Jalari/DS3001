@@ -128,10 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-wine-reviews/
+wine-reviews/*
 *.zip
 *.csv
-__pycahce__/
+__pycahce__/*
 .idea/
 *.json
-
+*.csv#
