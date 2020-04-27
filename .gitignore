@@ -3,3 +3,4 @@ wine-reviews/*
 *.csv
 __pycahce__/*
 .idea/*
+*.json
