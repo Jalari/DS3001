@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data
+/wine-reviews
+wine-reviews.zip
+Wine recommender.ipynb
