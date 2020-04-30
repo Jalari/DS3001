@@ -130,5 +130,13 @@ dmypy.json
 
 # data
 /wine-reviews
-wine-reviews.zip
 Wine recommender.ipynb
+
+wine-reviews/*
+*.zip
+*.csv
+__pycahce__/*
+.idea/*
+*.json
+*.xml
+
