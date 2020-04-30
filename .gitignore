@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -130,6 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
 wine-reviews/*
 *.zip
 *.csv
@@ -137,5 +135,4 @@ __pycahce__/*
 .idea/*
 *.json
 *.xml
-
 
