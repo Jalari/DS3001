@@ -56,6 +56,6 @@ for datapoint in description:
 print("Writing to file...")
 data['Aroma'] = aroma_feature
 data.drop('Unnamed: 0', axis=1, inplace=True)
-data.drop('Unnamed: 0.1', axis=1, inplace=True)
+# data.drop('Unnamed: 0.1', axis=1, inplace=True)
 data.to_csv('./wine-reviews/winemag-data-130k-v3.csv', mode='w',header=True)
 
