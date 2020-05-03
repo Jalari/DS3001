@@ -91,8 +91,6 @@ nd2reader==3.1.0
 networkx==2.2
 notebook==5.6.0
 numpy==1.11.1
-oauthlib==1.0.3
-openshot-qt==2.5.1.dev2
 pandas==0.23.4
 pandocfilters==1.4.2
 parsel==1.5.1
@@ -154,9 +152,6 @@ six==1.11.0
 sklearn==0.0
 slicerator==1.0.0
 system-service==0.3
-tensorboard==1.14.0
-tensorflow==1.14.0
-tensorflow-estimator==1.14.0
 termcolor==1.1.0
 terminado==0.8.1
 testpath==0.3.1
