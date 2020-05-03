@@ -112,7 +112,6 @@ pyasn1-modules==0.2.5
 pycparser==2.19
 pycups==1.9.73
 PyDispatcher==2.0.5
-pyenchant==2.0.0
 Pygments==2.2.0
 pygobject==3.20.0
 PyHamcrest==1.9.0
