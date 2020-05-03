@@ -1,46 +1,13 @@
-# Typical imports
+
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import re
-
-# Not so typical
-import matplotlib.image as image
-import matplotlib.colors
 from collections import defaultdict
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
-from IPython.display import Image as im
-import squarify as sq
 
-data = pd.read_csv('./wine-reviews/winemag-data-130k-v2.csv', index_col=0)
-countries = data.country.value_counts()
-
-# Limit top countries to those with more than 500 reviews
-temp_dict = countries[countries>500].to_dict()
-temp_dict['Other'] = countries[countries<501].sum()
-less_countries = pd.Series(temp_dict)
-less_countries.sort_values(ascending=False, inplace=True)
-
-# Turn Series into DataFrame for display purposes
-df = less_countries.to_frame()
-df.columns=['Number of Reviews']
-df.index.name = 'Country'
-
-
-# New colors for tree map since base ones are bland
-cmap = plt.cm.gist_rainbow_r
-norm = matplotlib.colors.Normalize(vmin=0, vmax=15)
-colors = [cmap(norm(value)) for value in range(15)]
-np.random.shuffle(colors)
-
-# Use squarify to plot the tree map with the custom colors
-fig,ax = plt.subplots(1,1,figsize=(11,11))
-sq.plot(sizes=less_countries.values, label=less_countries.index.values, alpha=0.5, ax=ax, color=colors)
-plt.axis('off')
-plt.title('Countries by Number of Wine Reviews')
-plt.show()
-
+path = './wine-reviews/winemag-data-130k-v4.csv'
+data = pd.read_csv(path, index_col=0)
 
 descriptions = defaultdict(list)
 data.apply(lambda x: descriptions[x.country].append(x.description), axis=1)
@@ -66,6 +33,6 @@ def generate_country_wordcloud(words, mask_image, filename=None, colormap='jet')
 
 masks = dict()
 
-masks['US'] = "./wordcloud_templates/usa39.png"
+masks['US'] = "./wordclouds/usa_template.png"
 us_wc = generate_country_wordcloud(descriptions['US'], masks['US'], './wordclouds/US.jpg')
 us_wc.to_image()
