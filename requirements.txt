@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Flask>=1.0.0
+=======
+Flask==1.0
+>>>>>>> e3e9e0bed225dbe1316786b3e687fa17429e27c1
 gunicorn==19.6
