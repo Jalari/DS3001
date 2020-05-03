@@ -90,7 +90,6 @@ nbformat==4.4.0
 nd2reader==3.1.0
 networkx==2.2
 notebook==5.6.0
-notify2==0.3
 numpy==1.11.1
 oauthlib==1.0.3
 opencv-python==4.1.0.25
