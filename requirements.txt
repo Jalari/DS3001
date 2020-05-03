@@ -114,20 +114,6 @@ semantic-version==2.5.0
 six==1.11.0
 sklearn==0.0
 tqdm==4.32.2
-traitlets==4.3.2
-unity-scope-calculator==0.1
-unity-scope-chromiumbookmarks==0.1
-unity-scope-colourlovers==0.1
-unity-scope-devhelp==0.1
-unity-scope-firefoxbookmarks==0.1
-unity-scope-gdrive==0.7
-unity-scope-manpages==0.1
-unity-scope-openclipart==0.1
-unity-scope-texdoc==0.1
-unity-scope-tomboy==0.1
-unity-scope-virtualbox==0.1
-unity-scope-yelp==0.1
-unity-scope-zotero==0.1
 virtualenv==16.4.0
 virtualenv-clone==0.5.1
 w3lib==1.20.0
@@ -139,4 +125,3 @@ wrapt==1.11.2
 xmltodict==0.12.0
 yarg==0.1.9
 yarl==1.2.0
-zope.interface==4.6.0
