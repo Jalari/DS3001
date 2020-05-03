@@ -134,7 +134,6 @@ Wine recommender.ipynb
 
 wine-reviews/*
 *.zip
-*.csv
 __pycahce__/*
 .idea/*
 *.json
