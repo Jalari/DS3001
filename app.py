@@ -5,7 +5,7 @@ from numpy.linalg import norm
 
 app = Flask(__name__)
 
-df = pd.read_csv('./wine-reviews/winemag-data-130k-v5.csv', delimiter=',',index_col = 0,header=0)
+df = pd.read_csv('./winemag-data-130k-v5.csv', delimiter=',',index_col = 0,header=0)
 meta_headers = ['description','title','winery']
 
 # Country headers organized by continent
