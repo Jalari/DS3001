@@ -39,64 +39,8 @@ df = df.astype(dtype=int)
 
 
 @app.route('/index.html', methods=['GET', 'POST','DELETE', 'PATCH'])
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST','DELETE', 'PATCH'])
 def index():
-    if request.method == 'POST':
-        QuestionaireAnswers = request.form.to_dict()
-
-        # todo setup handle on the index page only
-        ideal_vector = header.copy()
-        print(QuestionaireAnswers)
-
-        # change points to 90
-        ideal_vector[0] = 90
-        # update price
-        ideal_vector[1] = int(QuestionaireAnswers['price'])
-        # update country
-        for i in country_headers[ int(QuestionaireAnswers['country'])]:
-            ideal_vector[header.index(i)] = 1
-
-        #     updaet variety
-        ideal_vector[header.index('variety_' + QuestionaireAnswers['variety'])] = 1
-        # updaate aroma
-        for i in country_headers[ int(QuestionaireAnswers['aroma'])]:
-            ideal_vector[header.index(i)] = 1
-
-        # set all other values to 0
-        for ind,val in enumerate(ideal_vector):
-            if type(val) != int:
-                ideal_vector[ind] = 0
-
-        ideal_vector = np.asarray(ideal_vector)
-
-        print("This was the given Ideal Vector: ")
-        print(ideal_vector)
-
-        distances = []
-
-        # compute cosine similarity between points
-        for i in df:
-            a = ideal_vector
-            b = i
-            cos_sim = 1 - np.dot(a, b)/(norm(a)*norm(b))
-            distances.append(cos_sim)
-
-        # find best similarity
-        min_indexes = np.argsort(distances)[:5]
-
-
-        for index in min_indexes:
-            # print(min_indexes)
-            # max_index = distances.index(min(distances))
-            #
-            print("This was the closest wine: " + str(meta_data[index,1]))
-
-            print("This was the closest wine's vector: ")
-            print(df[index,:])
-
-        #     todo return jsonified data
-
-
     return render_template('index.html')
 
 
