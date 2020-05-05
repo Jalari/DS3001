@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 from numpy.linalg import norm
-import scipy.spatial.distance as distance
 
 app = Flask(__name__)
 
@@ -95,6 +94,7 @@ def index():
             print("This was the closest wine's vector: ")
             print(df[index,:])
 
+        #     todo return jsonified data
 
 
     return render_template('index.html')
