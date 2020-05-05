@@ -2,7 +2,6 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import numpy as np
-from tfidf import TfIdf
 
 
 class TfIdf:
@@ -96,27 +95,17 @@ def GenerateAromas(df):
 
        aroma_feature.append(calced_feature)
 
-   df['Aroma'] = aroma_feature
+   df['aroma'] = aroma_feature
    return df
 
 
 # remove empty and
 def cleanData(wine):
     # drop columns
-    wine.drop(columns=['taster_twitter_handle'], inplace=True)
-    wine.drop(columns=['description'], inplace=True)
+    wine.drop(columns=['taster_twitter_handle','province','taster_name','region_1','region_2','designation'], inplace=True)
+
     # drop duplicates
     wine.drop_duplicates(inplace=True)
-    # add "Unknown" to missing values in the categories with text
-    wine.country.fillna("Unknown", inplace=True)
-    wine.designation.fillna("Unknown", inplace=True)
-    wine.province.fillna("Unknown", inplace=True)
-    wine.region_1.fillna("Unknown", inplace=True)
-    wine.region_2.fillna("Unknown", inplace=True)
-    wine.taster_name.fillna("Unknown", inplace=True)
-    wine.title.fillna("Unknown", inplace=True)
-    # there is only one row with missing variety
-    wine.drop(wine[wine.variety.isna()].index, inplace=True)
 
     # Get the median price per country and fill n/a price values based on their country
     wine['price'] = wine['price'].fillna(wine.groupby('country')['price'].transform('median'))
@@ -124,12 +113,28 @@ def cleanData(wine):
     # add total median price for Egypt and Tunisia since they have no value prices information for their countries
     wine['price'] = wine['price'].fillna(wine['price'].median())
 
+    # add "Unknown" to missing values in the categories with text
+    wine.fillna("Unknown", inplace=True)
+
+    # there is only one row with missing variety
+    wine.drop(wine[wine.variety.isna()].index, inplace=True)
+
+    # Clean varieties to only 4 types
+    wine.loc[wine['variety'].str.contains('Pinot Noir', case=False), 'variety'] = 'PinotNoir'
+    wine.loc[wine['variety'].str.contains('Chardonnay', case=False), 'variety'] = 'Chardonnay'
+    wine.loc[wine['variety'].str.contains('Cabernet Sauvignon', case=False), 'variety'] = 'CabernetSauvignon'
+    wine.loc[wine['variety'].str.contains('Red Blend', case=False), 'variety'] = 'RedBlend'
+    wine.loc[~wine['variety'].str.contains('PinotNoir') & ~wine['variety'].str.contains('Chardonnay')& ~wine['variety'].str.contains('CabernetSauvignon')& ~wine['variety'].str.contains('RedBlend'),'variety'] = 'Other'
+
+    # One hot encode nominal data
+    wine = pd.get_dummies(data=wine,columns=['aroma','country','variety'], drop_first=True)
+
     return wine
 
 
 def main():
     path = './wine-reviews/winemag-data-130k-v2.csv'
-    output =  './wine-reviews/winemag-data-130k-v4.csv'
+    output =  './wine-reviews/winemag-data-130k-v5.csv'
     wine = pd.read_csv(path, index_col=0)
     print("Generating Aromas Column")
     wine = GenerateAromas(wine)
