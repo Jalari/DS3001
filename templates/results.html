@@ -24,14 +24,31 @@
 
     <!-- Main CSS-->
     <link href="static/css/000003main.css" rel="stylesheet" media="all">
+
+    <style>
+        div.card-body>ol>li{color:red}
+    </style>
 </head>
 
 <body>
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
+	    <div class="card card-4">
+                <div class="card-body">
+		    <h2> Recommended Wines: </h2>
+		    <ol>
+			<h4><li> {{ wine1 }} </li></h4>
+		    	<h4><li> {{ wine2 }} </li></h4>
+		    	<h4><li> {{ wine3 }} </li></h4>
+		    	<h4><li> {{ wine4 }} </li></h4>
+		    	<h4><li> {{ wine5 }} </li></h4>
+		    </ol>
+		</div>
+            </div>
+	    <br><br>
             <div class="card card-4">
                 <div class="card-body">
-                    <h2 class="title">Wine Recommender</h2>
+                    <h2 class="title">Try another!</h2>
                     <form method="POST" action="/results.html">
                         <div class="row row-space">
                             <div class="input-group">

@@ -90,16 +90,22 @@ def results():
         min_indexes = np.argsort(distances)[:5]
 
 
-        for index in min_indexes:
+#        for index in min_indexes:
             # print(min_indexes)
             # max_index = distances.index(min(distances))
             #
-            print("This was the closest wine: " + str(meta_data[index,1]))
+#             print("This was the closest wine: " + str(meta_data[index,1]))
 
-            print("This was the closest wine's vector: ")
-            print(df[index,:])
-
-    return render_template('results.html')
+#             print("This was the closest wine's vector: ")
+#             print(df[index,:])
+            
+        wine1 = meta_data[min_indexes[0],1]
+        wine2 = meta_data[min_indexes[1],1]
+        wine3 = meta_data[min_indexes[2],1]
+        wine4 = meta_data[min_indexes[3],1]
+        wine5 = meta_data[min_indexes[4],1]
+        
+    return render_template('results.html', wine1=wine1, wine2=wine2, wine3=wine3, wine4=wine4, wine5=wine5)
 
 
 '''
