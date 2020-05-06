@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 import pandas as pd
 import numpy as np
 from numpy.linalg import norm
@@ -39,17 +39,17 @@ df = df.astype(dtype=int)
 
 
 @app.route('/index.html', methods=['GET', 'POST','DELETE', 'PATCH'])
-@app.route('/', methods=['GET', 'POST','DELETE', 'PATCH'])
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
 
 @app.route('/results.html', methods=['GET','POST'])
 def results():
+    resp = {}
     if request.method == 'POST':
         QuestionaireAnswers = request.form.to_dict()
 
-        # todo make this on client side
         ideal_vector = header.copy()
         print(QuestionaireAnswers)
 
@@ -58,17 +58,17 @@ def results():
         # update price
         ideal_vector[1] = int(QuestionaireAnswers['price'])
         # update country
-        for i in country_headers[ int(QuestionaireAnswers['country'])]:
+        for i in country_headers[int(QuestionaireAnswers['country'])]:
             ideal_vector[header.index(i)] = 1
 
         #     updaet variety
         ideal_vector[header.index('variety_' + QuestionaireAnswers['variety'])] = 1
         # updaate aroma
-        for i in country_headers[ int(QuestionaireAnswers['aroma'])]:
+        for i in country_headers[int(QuestionaireAnswers['aroma'])]:
             ideal_vector[header.index(i)] = 1
 
         # set all other values to 0
-        for ind,val in enumerate(ideal_vector):
+        for ind, val in enumerate(ideal_vector):
             if type(val) != int:
                 ideal_vector[ind] = 0
 
@@ -83,38 +83,29 @@ def results():
         for i in df:
             a = ideal_vector
             b = i
-            cos_sim = 1 - np.dot(a, b)/(norm(a)*norm(b))
+            cos_sim = 1 - np.dot(a, b) / (norm(a) * norm(b))
             distances.append(cos_sim)
 
         # find best similarity
         min_indexes = np.argsort(distances)[:5]
 
 
-        for index in min_indexes:
+        for value in min_indexes:
+
+            wine_data = {"Description":str(meta_data[value, 0]),"Winery":str(meta_data[value, 2]),"Price":df[value, 1],"Score":df[value, 0]}
+
+
+            resp[str(meta_data[value, 1])] = wine_data
             # print(min_indexes)
             # max_index = distances.index(min(distances))
             #
-            print("This was the closest wine: " + str(meta_data[index,1]))
+            print("This was the closest wine: " + str(meta_data[value, 1]))
 
             print("This was the closest wine's vector: ")
-            print(df[index,:])
+            print(df[value, :])
 
-    return render_template('results.html')
+    return render_template('results.html',resp = resp)
 
-
-'''
-todo
-
-compute euclidian distance of new data between the dataset
-
-np.sqrt(np.sum((given_vector - other_vector) ** 2))
-
-find the closest datapoint
-
-return closest datapoint to be used in recomender
-
-
-'''
 
 
 if __name__ == '__main__':
