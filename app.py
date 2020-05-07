@@ -53,8 +53,8 @@ def results():
         ideal_vector = header.copy()
         print(QuestionaireAnswers)
 
-        # change points to 90
-        ideal_vector[0] = 90
+        # change points to 95
+        ideal_vector[0] = 95
 
         # update price
         ideal_vector[1] = int(QuestionaireAnswers['price'])
@@ -106,3 +106,5 @@ def results():
         
     return render_template('results.html', resp=resp)
 
+if __name__ == '__main__':
+    app.run(threaded=False, processes=5)

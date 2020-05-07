@@ -46,7 +46,7 @@
                         </tr>
                          {% for key, parent_dict_item in resp.items() %}
                             <tr>
-                                <th> {{ key }} </th>
+                                <th><a href="https://shopwinedirect.com/search.php?search_query={{ key }}" target="_blank">{{ key }}</a></th>
                                 <td>${{ parent_dict_item['Price'] }}</td>
                                 <td>{{ parent_dict_item['Winery'] }}</td>
                                 <td>{{ parent_dict_item['Description'] }}</td>
