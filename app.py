@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 from numpy.linalg import norm
@@ -55,15 +55,18 @@ def results():
 
         # change points to 90
         ideal_vector[0] = 90
+
         # update price
         ideal_vector[1] = int(QuestionaireAnswers['price'])
+
         # update country
         for i in country_headers[int(QuestionaireAnswers['country'])]:
             ideal_vector[header.index(i)] = 1
 
-        #     updaet variety
+        # update variety
         ideal_vector[header.index('variety_' + QuestionaireAnswers['variety'])] = 1
-        # updaate aroma
+
+        # update aroma
         for i in country_headers[int(QuestionaireAnswers['aroma'])]:
             ideal_vector[header.index(i)] = 1
 
@@ -94,19 +97,17 @@ def results():
 
             wine_data = {"Description":str(meta_data[value, 0]),"Winery":str(meta_data[value, 2]),"Price":df[value, 1],"Score":df[value, 0]}
 
-
             resp[str(meta_data[value, 1])] = wine_data
-            # print(min_indexes)
-            # max_index = distances.index(min(distances))
-            #
             print("This was the closest wine: " + str(meta_data[value, 1]))
 
             print("This was the closest wine's vector: ")
             print(df[value, :])
 
-    return render_template('results.html',resp = resp)
+        wine1 = meta_data[min_indexes[0],1]
+        wine2 = meta_data[min_indexes[1],1]
+        wine3 = meta_data[min_indexes[2],1]
+        wine4 = meta_data[min_indexes[3],1]
+        wine5 = meta_data[min_indexes[4],1]
+        
+    return render_template('results.html', wine1=wine1, wine2=wine2, wine3=wine3, wine4=wine4, wine5=wine5)
 
-
-
-if __name__ == '__main__':
-    app.run()

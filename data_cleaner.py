@@ -2,7 +2,8 @@ import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import numpy as np
-
+import names
+import random
 
 class TfIdf:
     def __init__(self):
@@ -98,9 +99,33 @@ def GenerateAromas(df):
    df['aroma'] = aroma_feature
    return df
 
+# Generate a matrix of random reviews per wine nad taster
+def gen_ratingMatrix(wine,numtasters):
+    output =  './wine-reviews/reviews.csv'
+
+    tasters = []
+
+    for taster in range(numtasters):
+        tasters.append(names.get_full_name())
+
+
+    wine_names = wine['title'].unique()
+
+    # generate random reviews
+    rand_wine = pd.DataFrame(np.random.randint(80, 99,size=(len(wine_names),numtasters)), columns=tasters,index=wine_names)
+
+    for col in rand_wine.columns:
+        rand = random.uniform(0.1, 0.8)
+        rand_wine.loc[rand_wine.sample(frac=rand).index, col] = pd.np.nan
+
+
+    rand_wine.to_csv(output, mode='w', header=True)
+
+
 
 # remove empty and
 def cleanData(wine):
+
     # drop columns
     wine.drop(columns=['taster_twitter_handle','province','taster_name','region_1','region_2','designation'], inplace=True)
 
@@ -136,6 +161,11 @@ def main():
     path = './wine-reviews/winemag-data-130k-v2.csv'
     output =  './wine-reviews/winemag-data-130k-v5.csv'
     wine = pd.read_csv(path, index_col=0)
+
+    print("Generating Review Matrix")
+    gen_ratingMatrix(wine,200)
+
+
     print("Generating Aromas Column")
     wine = GenerateAromas(wine)
     print("Cleaning Dataset")
