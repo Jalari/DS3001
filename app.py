@@ -103,11 +103,6 @@ def results():
             print("This was the closest wine's vector: ")
             print(df[value, :])
 
-        wine1 = meta_data[min_indexes[0],1]
-        wine2 = meta_data[min_indexes[1],1]
-        wine3 = meta_data[min_indexes[2],1]
-        wine4 = meta_data[min_indexes[3],1]
-        wine5 = meta_data[min_indexes[4],1]
         
-    return render_template('results.html', wine1=wine1, wine2=wine2, wine3=wine3, wine4=wine4, wine5=wine5)
+    return render_template('results.html', resp=resp)
 

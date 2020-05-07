@@ -35,14 +35,26 @@
         <div class="wrapper wrapper--w680">
 	    <div class="card card-4">
                 <div class="card-body">
-		    <h2> Recommended Wines: </h2>
-		    <ol>
-			<h4><li> {{ wine1 }} </li></h4>
-		    	<h4><li> {{ wine2 }} </li></h4>
-		    	<h4><li> {{ wine3 }} </li></h4>
-		    	<h4><li> {{ wine4 }} </li></h4>
-		    	<h4><li> {{ wine5 }} </li></h4>
-		    </ol>
+                    <h2 class="title">Recommended Wines</h2>
+                    <table border = 1>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Winery</th>
+                            <th>Description</th>
+                            <th>Score</th>
+                        </tr>
+                         {% for key, parent_dict_item in resp.items() %}
+                            <tr>
+                                <th> {{ key }} </th>
+                                <td>${{ parent_dict_item['Price'] }}</td>
+                                <td>{{ parent_dict_item['Winery'] }}</td>
+                                <td>{{ parent_dict_item['Description'] }}</td>
+                                <td>{{ parent_dict_item['Score'] }}</td>
+
+                            </tr>
+                         {% endfor %}
+                    </table>
 		</div>
             </div>
 	    <br><br>
