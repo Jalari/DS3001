@@ -21,7 +21,8 @@
     <!-- Vendor CSS-->
     <link href="static/css/000005select2.min.css" rel="stylesheet" media="all">
     <link href="static/css/000023daterangepicker.css" rel="stylesheet" media="all">
-
+    <!--Bootsrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Main CSS-->
     <link href="static/css/000003main.css" rel="stylesheet" media="all">
 
@@ -33,20 +34,23 @@
 <body>
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
-	    <div class="card card-4">
+	        <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Recommended Wines</h2>
-                    <table border = 1>
+                    <table class="table table-striped">
+                      <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Winery</th>
-                            <th>Description</th>
-                            <th>Score</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Winery</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Score</th>
                         </tr>
-                         {% for key, parent_dict_item in resp.items() %}
+                      </thead>
+                      <tbody>
+                        {% for key, parent_dict_item in resp.items() %}
                             <tr>
-                                <th><a href="https://shopwinedirect.com/search.php?search_query={{ key }}" target="_blank">{{ key }}</a></th>
+                                <th scope="row"><a href="https://shopwinedirect.com/search.php?search_query={{ key }}" target="_blank">{{ key }}</a></th>
                                 <td>${{ parent_dict_item['Price'] }}</td>
                                 <td>{{ parent_dict_item['Winery'] }}</td>
                                 <td>{{ parent_dict_item['Description'] }}</td>
@@ -54,8 +58,10 @@
 
                             </tr>
                          {% endfor %}
+                      </tbody>
                     </table>
-		</div>
+
+		        </div>
             </div>
 	    <br><br>
             <div class="card card-4">
