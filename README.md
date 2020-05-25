@@ -1,6 +1,3 @@
-### DS 3001
-
-
 # DS 3001
 Repository for DS 3001 Data Science D Term 2020
 
@@ -16,13 +13,8 @@ Lecture Notes:
 &nbsp;	  Presentation slides
 
 
-Other files are for the final project: 
-
-
-Dataset: [Kaggle Wine Reviews](https://www.kaggle.com/zynicide/wine-reviews)
-
-
-Website: [Heroku App](https://ds3001-team5.herokuapp.com/)
+Project:
+&nbsp;	  Files for the final project: 
 
 
 # IMPORTANT
