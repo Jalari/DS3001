@@ -2,7 +2,8 @@ from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 from numpy.linalg import norm
-
+from surprise import SVD
+from surprise.model_selection import train_test_split
 app = Flask(__name__)
 
 df = pd.read_csv('./winemag-data-130k-v5.csv', delimiter=',',index_col = 0,header=0)
@@ -33,6 +34,9 @@ df = df.to_numpy()
 
 df = df.astype(dtype=int)
 
+reviews = pd.read_csv('./reviews.csv', delimiter=',',index_col=0, header=0)
+reviews.fillna(0,inplace=True)
+algo = SVD()
 
 # TODO before going live
 # https://flask.palletsprojects.com/en/1.1.x/tutorial/deploy/
@@ -42,6 +46,28 @@ df = df.astype(dtype=int)
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route('/recommend.html', methods=['GET', 'POST'])
+def rec():
+    resp = {}
+    if request.method == 'POST':
+        req = request.form.to_dict()
+
+        wine_names = reviews.index.values.tolist()
+        newvector = pd.DataFrame(index=["givenValues"],columns=wine_names)
+        for key in req.keys():
+            newvector[key] = req[key]
+        newvector.fillna(0,inplace=True)
+
+        trainset, testset = train_test_split(reviews, test_size=0.25)
+
+        algo.fit(trainset)
+        predictions = algo.predict(newvector,)
+
+        print(predictions)
+
+    #     todo make vector from input and do reccomender from scores
+    return render_template('recommend.html',resp=resp)
 
 
 @app.route('/results.html', methods=['GET','POST'])

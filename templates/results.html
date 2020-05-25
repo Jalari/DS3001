@@ -26,9 +26,6 @@
     <!-- Main CSS-->
     <link href="static/css/000003main.css" rel="stylesheet" media="all">
 
-    <style>
-        div.card-body>ol>li{color:red}
-    </style>
 </head>
 
 <body>
@@ -37,6 +34,7 @@
 	        <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Recommended Wines</h2>
+                     <form method="POST" action="/recommend.html">
                     <table class="table table-striped">
                       <thead>
                         <tr>
@@ -44,7 +42,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Winery</th>
                             <th scope="col">Description</th>
-                            <th scope="col">Score</th>
+                            <th scope="col">Given Score</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -54,13 +52,16 @@
                                 <td>${{ parent_dict_item['Price'] }}</td>
                                 <td>{{ parent_dict_item['Winery'] }}</td>
                                 <td>{{ parent_dict_item['Description'] }}</td>
-                                <td>{{ parent_dict_item['Score'] }}</td>
-
+                                <td><input class="form-control" type="text" value ="100" name="{{ key }}" ></td>
+                                <!--<td>{{ parent_dict_item['Score'] }}</td>-->
                             </tr>
                          {% endfor %}
                       </tbody>
                     </table>
-
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                        </div>
+                    </form>
 		        </div>
             </div>
 	    <br><br>
